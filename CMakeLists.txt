@@ -34,6 +34,9 @@ target_link_libraries (CommonQGramMatrix ${SEQAN_LIBRARIES})
 add_executable (IndexIterators IndexIterators/main.cpp)
 target_link_libraries (IndexIterators ${SEQAN_LIBRARIES})
 
+# Add executable and link against SeqAn dependencies.
+add_executable (Alignment Alignment/main.cpp)
+target_link_libraries (Alignment ${SEQAN_LIBRARIES})
 
 
 
@@ -43,4 +46,5 @@ if ( ZLIB_FOUND )
     include_directories( ${ZLIB_INCLUDE_DIRS} )
     target_link_libraries( CommonQGramMatrix ${ZLIB_LIBRARIES} )
     target_link_libraries( IndexIterators ${ZLIB_LIBRARIES} )
+    target_link_libraries(Alignment ${ZLIB_LIBRARIES})
 endif( ZLIB_FOUND )
