@@ -10,6 +10,8 @@
 using namespace seqan;
 
 
+void constructAlignment();
+
 void globalAlignSimpleScore();
 
 void globalAlignBlosum62();
@@ -20,6 +22,8 @@ void globalAlignBlosum62AffineDynamic();
 
 int main() {
 
+    std::cout << "Construction of alignment" << std::endl;
+    constructAlignment();
     std::cout << "Global Align - Simple Score" << std::endl;
     globalAlignSimpleScore();
     std::cout << "Global Align - Blosum62" << std::endl;
@@ -29,6 +33,73 @@ int main() {
 
     return 0;
 };
+
+
+void constructAlignment() {
+
+    typedef char TChar;                             // character type
+    typedef String<TChar> TSequence;                // sequence type
+    typedef Align<TSequence, ArrayGaps> TAlign;     // align type
+    typedef Row<TAlign>::Type TRow;                 // gapped sequence type
+
+    TSequence seq1 = "CDFGDC";
+    TSequence seq2 = "CDEFGAHGC";
+
+    TAlign align;
+    resize(rows(align), 2);
+    assignSource(row(align, 0), seq1);
+    assignSource(row(align, 1), seq2);
+    std::cout << "Cropped alignment: " << std::endl;
+    std::cout << align;
+
+    std::cout << "Gapped alignment: " << std::endl;
+    TRow & row1 = row(align, 0);  // important: we use refs of the rows, in order for changes to take effect
+    TRow & row2 = row(align, 1);
+    insertGap(row1, 2);
+    std::cout << align;
+    insertGaps(row1, 5, 2);
+    std::cout << align;
+
+
+    std::cout << std::endl << "ViewToSource1: " << std::endl;
+    for (auto c: row1)
+        std::cout << c << " ";
+    std::cout << std::endl;
+
+    for (unsigned i = 0; i < length(row1); ++i)
+        std::cout << toSourcePosition(row1, i) << " ";
+    std::cout << std::endl;
+
+
+    std::cout << std::endl << "ViewToSource2: " << std::endl;
+    for (auto c: row2)
+        std::cout << c << " ";
+    std::cout << std::endl;
+
+    for (unsigned i = 0; i < length(row2); ++i)
+        std::cout << toSourcePosition(row2, i) << " ";
+    std::cout << std::endl;
+
+
+    std::cout << std::endl << "SourceToView1: " << std::endl;
+    for (auto c: source(row1))
+        std::cout << c << " ";
+    std::cout << std::endl;
+
+    for (unsigned i = 0; i < length(source(row1)); ++i)
+        std::cout << toViewPosition(row1, i) << " ";
+    std::cout << std::endl;
+
+
+    std::cout << std::endl << "SourceToView2: " << std::endl;
+    for (auto c: source(row2))
+        std::cout << c << " ";
+    std::cout << std::endl;
+
+    for (unsigned i = 0; i < length(source(row2)); ++i)
+        std::cout << toViewPosition(row2, i) << " ";
+    std::cout << std::endl;
+}
 
 
 /**
