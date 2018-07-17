@@ -34,7 +34,9 @@ int main() {
     return 0;
 };
 
-
+/**
+ * Align pair of seqs, insert gaps, gap space to source space
+ */
 void constructAlignment() {
 
     typedef char TChar;                             // character type
