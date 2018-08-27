@@ -45,6 +45,9 @@ target_link_libraries (IndexIterators ${SEQAN_LIBRARIES})
 add_executable (Alignment Alignment/main.cpp)
 target_link_libraries (Alignment ${SEQAN_LIBRARIES})
 
+add_executable (GraphAlignment Alignment/GraphAlignment/main.cpp)
+target_link_libraries (GraphAlignment ${SEQAN_LIBRARIES})
+
 
 
 # Search for zlib as a dependency for SeqAn.
