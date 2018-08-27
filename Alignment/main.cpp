@@ -46,7 +46,7 @@ void constructAlignment() {
     typedef char TChar;                             // character type
     typedef String<TChar> TSequence;                // sequence type
     typedef Align<TSequence, ArrayGaps> TAlign;     // align type
-    typedef Row<TAlign>::Type TRow;                 // gapped sequence type
+    typedef Row<TAlign>::Type TRow;                 // gapped sequence type via metafunction Row<>::Type
 
     TSequence seq1 = "CDFGDC";
     TSequence seq2 = "CDEFGAHGC";
@@ -59,7 +59,7 @@ void constructAlignment() {
     std::cout << align;
 
     std::cout << "Gapped alignment: " << std::endl;
-    TRow &row1 = row(align, 0);  // important: we use refs of the rows, in order for changes to take effect
+    TRow &row1 = row(align, 0);  // important: we use refs of the rows, in order for changes to take effect on align object
     TRow &row2 = row(align, 1);
     insertGap(row1, 2);
     std::cout << align;
