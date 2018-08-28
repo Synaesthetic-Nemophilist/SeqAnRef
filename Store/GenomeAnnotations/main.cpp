@@ -12,7 +12,8 @@ using namespace seqan;
 int main() {
 
 //    CharString fileName = getAbsolutePath();
-    GffFileIn file(toCString("/Users/nomaterials/CLionProjects/SeqAnRef/Store/GenomeAnnotations/data/assignment_annotations.gtf"));
+    GffFileIn file(toCString(
+            R"(C:\Users\kougianosg\CLionProjects\SeqanTut\Store\GenomeAnnotations\data\assignment_annotations.gtf)"));
 
     FragmentStore<> store;
     readRecords(store, file);
@@ -21,28 +22,33 @@ int main() {
     Iterator<FragmentStore<>, AnnotationTree<> >::Type it;
     it = begin(store, AnnotationTree<>());
 
-    std::cout << "Number of children for each mRNA: " << std::endl;
-    unsigned count = 0;
-    // Go down to the first leaf (first child of the first mRNA)
-    while(goDown(it))
-    {}
+    unsigned countGenes = 0;
+    unsigned countmRNAs = 0;
+    unsigned countExons = 0;
+    int length = 0;
 
-    while (!atEnd(it))
-    {
-        ++count;
-        // Iterate over all siblings and count
-        while (goRight(it))
-            ++count;
-        std::cout << count << std::endl;
-        count = 0;
-        // Jump to the next mRNA or gene, go down to its first leaf and count it
-        if (!atEnd(it))
-        {
-            goNext(it);
-            if (!atEnd(it))
-                while (goDown(it))
-                {}
+    // Iterate over annotation tree and count different elements and compute exon lengths
+    while(!atEnd(it)) {
+        if(getType(it) == "gene") {
+            countGenes++;
+        } else if (getType(it) == "mRNA") {
+            countmRNAs++;
+        } else if (getType(it) == "exon") {
+            countExons++;
+            length = abs((int)getAnnotation(it).endPos - (int)getAnnotation(it).beginPos);
         }
+        goNext(it);
     }
+
+    if (countGenes == 0u)  // prevent div-by-zero below
+        countGenes = 1;
+    if (countmRNAs == 0u)  // prevent div-by-zero below
+        countmRNAs = 1;
+    if (countExons == 0u)  // prevent div-by-zero below
+        countExons = 1;
+    // Ouput some stats:
+    std::cout << "Average number of mRNAs for genes: " << (float)countmRNAs / (float)countGenes << std::endl;
+    std::cout << "Average number of exons for mRNAs: " << (float)countExons / (float)countmRNAs << std::endl;
+    std::cout << "Average length of exons: " << (float)length / (float)countExons << std::endl;
     return 0;
 }
