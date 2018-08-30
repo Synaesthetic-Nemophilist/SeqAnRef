@@ -51,6 +51,9 @@ target_link_libraries (GraphAlignment ${SEQAN_LIBRARIES})
 add_executable(GenomeAnnotations Store/GenomeAnnotations/main.cpp)
 target_link_libraries (GenomeAnnotations ${SEQAN_LIBRARIES})
 
+add_executable(GraphHMM Graphs/HMM/main.cpp)
+target_link_libraries (GraphHMM ${SEQAN_LIBRARIES})
+
 
 
 # Search for zlib as a dependency for SeqAn.
@@ -61,3 +64,4 @@ if ( ZLIB_FOUND )
     target_link_libraries( IndexIterators ${ZLIB_LIBRARIES} )
     target_link_libraries(Alignment ${ZLIB_LIBRARIES})
 endif( ZLIB_FOUND )
+
