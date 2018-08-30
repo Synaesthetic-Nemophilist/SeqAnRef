@@ -27,7 +27,7 @@ seqan::ArgumentParser::ParseResult parseCommandLine(ModifyStringOptions &options
     // Setup ArgumentParser
     seqan::ArgumentParser parser("modify_string");
     // Setup doc
-    seqan::setShortDescription(parser, "String Modifier");
+    seqan::setShortDescription(parser, "String Modifiers");
     seqan::setVersion(parser, "1.0");
     seqan::setDate(parser, "July 2018");
     seqan::addUsageLine(parser,
