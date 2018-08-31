@@ -10,6 +10,7 @@ using namespace seqan;
 
 void JournaledStringBasics();
 void JST();
+void JSTMyersUkkonenApprox();
 
 
 // Custom functor for printing upon seq match on JST
@@ -39,11 +40,15 @@ int main(){
     // JournaledString test
     JournaledStringBasics();
 
-    std::cout << std::endl << "JST output" << std::endl;
+    std::cout << std::endl << "JST HorSpool exact match output" << std::endl;
 
-    // Journaled String Tree test
+    // Journaled String Tree exact match test
     JST();
 
+    std::cout << std::endl << "JST MyersUkkonen approx match (up to 2 errors) output" << std::endl;
+
+    // Journaled String Tree approx match with up to 2 errors test
+    JSTMyersUkkonenApprox();
 
     return 0;
 }
@@ -83,7 +88,9 @@ void JournaledStringBasics() {
 
 }
 
-
+/**
+ * Find the needle exactly
+ */
 void JST() {
 
     typedef JournaledStringTree<DnaString> TJst;
@@ -107,6 +114,37 @@ void JST() {
     TTraverser trav(jst, length(ndl));
 
     TPattern pat(ndl);
+    JstExtension<TPattern> ext(pat);
+
+    MatchPrinter<TTraverser> delegate(trav);
+    find(trav, ext, delegate);
+
+}
+
+/**
+ * Find the needle approximatively
+ * with up to 2 errors
+ */
+void JSTMyersUkkonenApprox() {
+
+    typedef JournaledStringTree<DnaString>   TJst;
+    typedef Pattern<DnaString, MyersUkkonen> TPattern;
+    typedef Traverser<TJst>::Type            TTraverser;
+
+    DnaString seq = "AGATCGAGCGAGCTAGCGACTCAG";
+    TJst jst(seq, 10);
+
+    insert(jst, 1, 3, std::vector<unsigned>{1, 3, 5, 6, 7}, DeltaTypeDel());
+    insert(jst, 8, "CGTA", std::vector<unsigned>{1, 2}, DeltaTypeIns());
+    insert(jst, 10, 'C', std::vector<unsigned>{4, 9}, DeltaTypeSnp());
+    insert(jst, 15, 2, std::vector<unsigned>{0, 4, 7}, DeltaTypeDel());
+    insert(jst, 20, 'A', std::vector<unsigned>{0, 9}, DeltaTypeSnp());
+    insert(jst, 20, Pair<unsigned, DnaString>(1, "CTC"), std::vector<unsigned>{1, 2, 3, 7}, DeltaTypeSV());
+
+    DnaString ndl = "CCTCCA";
+    TTraverser trav(jst, length(ndl) + 2);  // adjust for error threshold
+
+    TPattern pat(ndl, -2);  // adjust for error threshold
     JstExtension<TPattern> ext(pat);
 
     MatchPrinter<TTraverser> delegate(trav);
