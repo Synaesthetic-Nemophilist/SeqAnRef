@@ -60,6 +60,9 @@ target_link_libraries (Modifiers ${SEQAN_LIBRARIES})
 add_executable(JournaledStringTree Data_Structures/JournaledStringTree/main.cpp)
 target_link_libraries (JournaledStringTree ${SEQAN_LIBRARIES})
 
+add_executable(Online_Pattern_Matching Algorithms/Pattern_Matching/Online_Pattern_Matching/main.cpp)
+target_link_libraries (Online_Pattern_Matching ${SEQAN_LIBRARIES})
+
 
 
 # Search for zlib as a dependency for SeqAn.
@@ -70,6 +73,7 @@ if ( ZLIB_FOUND )
     target_link_libraries(IndexIterators ${ZLIB_LIBRARIES} )
     target_link_libraries(Alignment ${ZLIB_LIBRARIES})
 endif( ZLIB_FOUND )
+
 
 
 
