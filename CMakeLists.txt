@@ -33,31 +33,31 @@ target_link_libraries (FirstExample ${SEQAN_LIBRARIES})
 add_executable(ArgParser arg_parser/main.cpp)
 target_link_libraries (ArgParser ${SEQAN_LIBRARIES})
 
-add_executable(StringsSegments strings_segments/main.cpp)
+add_executable(StringsSegments Data_Structures/strings_segments/main.cpp)
 target_link_libraries (StringsSegments ${SEQAN_LIBRARIES})
 
-add_executable (CommonQGramMatrix CommonQGramMatrix/main.cpp)
+add_executable (CommonQGramMatrix Data_Structures/CommonQGramMatrix/main.cpp)
 target_link_libraries (CommonQGramMatrix ${SEQAN_LIBRARIES})
 
-add_executable (IndexIterators IndexIterators/main.cpp)
+add_executable (IndexIterators Data_Structures/IndexIterators/main.cpp)
 target_link_libraries (IndexIterators ${SEQAN_LIBRARIES})
 
-add_executable (Alignment Alignment/main.cpp)
+add_executable (Alignment Data_Structures/Alignment/main.cpp)
 target_link_libraries (Alignment ${SEQAN_LIBRARIES})
 
-add_executable (GraphAlignment Alignment/GraphAlignment/main.cpp)
+add_executable (GraphAlignment Data_Structures/Alignment/GraphAlignment/main.cpp)
 target_link_libraries (GraphAlignment ${SEQAN_LIBRARIES})
 
-add_executable(GenomeAnnotations Store/GenomeAnnotations/main.cpp)
+add_executable(GenomeAnnotations Data_Structures/Store/GenomeAnnotations/main.cpp)
 target_link_libraries (GenomeAnnotations ${SEQAN_LIBRARIES})
 
-add_executable(GraphHMM Graphs/HMM/main.cpp)
+add_executable(GraphHMM Data_Structures/Graphs/HMM/main.cpp)
 target_link_libraries (GraphHMM ${SEQAN_LIBRARIES})
 
-add_executable(Modifiers Modifiers/main.cpp)
+add_executable(Modifiers Data_Structures/Modifiers/main.cpp)
 target_link_libraries (Modifiers ${SEQAN_LIBRARIES})
 
-add_executable(JournaledStringTree JournaledStringTree/main.cpp)
+add_executable(JournaledStringTree Data_Structures/JournaledStringTree/main.cpp)
 target_link_libraries (JournaledStringTree ${SEQAN_LIBRARIES})
 
 
@@ -66,8 +66,8 @@ target_link_libraries (JournaledStringTree ${SEQAN_LIBRARIES})
 find_package( ZLIB REQUIRED )
 if ( ZLIB_FOUND )
     include_directories( ${ZLIB_INCLUDE_DIRS} )
-    target_link_libraries( CommonQGramMatrix ${ZLIB_LIBRARIES} )
-    target_link_libraries( IndexIterators ${ZLIB_LIBRARIES} )
+    target_link_libraries(CommonQGramMatrix ${ZLIB_LIBRARIES} )
+    target_link_libraries(IndexIterators ${ZLIB_LIBRARIES} )
     target_link_libraries(Alignment ${ZLIB_LIBRARIES})
 endif( ZLIB_FOUND )
 
