@@ -1,0 +1,20 @@
+//
+// Created by kougianosg on 03-Sep-18.
+//
+
+#include <iostream>
+#include <seqan/index.h>
+
+using namespace seqan;
+
+int main()
+{
+    typedef Index<CharString, IndexQGram<UngappedShape<4>, OpenAddressing> > TIndex;
+    TIndex index("tobeornottobe");
+    Finder<TIndex> finder(index);
+
+    while (find(finder, "tobe"))
+        std::cout << '[' << beginPosition(finder) << ',' << endPosition(finder) << ")\t" << infix(finder) << std::endl;
+
+    return 0;
+}
