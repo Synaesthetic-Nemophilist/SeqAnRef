@@ -78,6 +78,9 @@ target_link_libraries (Overlap_Alignment ${SEQAN_LIBRARIES})
 add_executable(Specialized_Alignment Algorithms/DP_Alignment/Pairwise_Sequence_Alignment/Specialized_Alignment/main.cpp)
 target_link_libraries (Specialized_Alignment ${SEQAN_LIBRARIES})
 
+add_executable(Local_Alignment Algorithms/DP_Alignment/Pairwise_Sequence_Alignment/Local_Alignment/main.cpp)
+target_link_libraries (Local_Alignment ${SEQAN_LIBRARIES})
+
 
 
 # Search for zlib as a dependency for SeqAn.
@@ -88,12 +91,4 @@ if ( ZLIB_FOUND )
     target_link_libraries(IndexIterators ${ZLIB_LIBRARIES} )
     target_link_libraries(Alignment ${ZLIB_LIBRARIES})
 endif( ZLIB_FOUND )
-
-
-
-
-
-
-
-
 
