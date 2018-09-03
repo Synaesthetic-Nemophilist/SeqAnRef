@@ -66,6 +66,9 @@ target_link_libraries (Online_Pattern_Matching ${SEQAN_LIBRARIES})
 add_executable(Indexed_Pattern_Matching Algorithms/Pattern_Matching/Indexed_Pattern_Matching/main.cpp)
 target_link_libraries (Indexed_Pattern_Matching ${SEQAN_LIBRARIES})
 
+add_executable(Optimal_Search_Scheme Algorithms/Pattern_Matching/Optimal_Search_Scheme/main.cpp)
+target_link_libraries (Optimal_Search_Scheme ${SEQAN_LIBRARIES})
+
 
 
 # Search for zlib as a dependency for SeqAn.
@@ -76,6 +79,7 @@ if ( ZLIB_FOUND )
     target_link_libraries(IndexIterators ${ZLIB_LIBRARIES} )
     target_link_libraries(Alignment ${ZLIB_LIBRARIES})
 endif( ZLIB_FOUND )
+
 
 
 
