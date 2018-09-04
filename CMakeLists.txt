@@ -93,6 +93,15 @@ target_link_libraries (Basic_Extending ${SEQAN_LIBRARIES})
 add_executable(Gapped_X-Drop_Extending Algorithms/Seed_Extension/Gapped_X-Drop_Extending/main.cpp)
 target_link_libraries (Gapped_X-Drop_Extending ${SEQAN_LIBRARIES})
 
+add_executable(Local_Chaining Algorithms/Seed_Extension/Local_Chaining/main.cpp)
+target_link_libraries (Local_Chaining ${SEQAN_LIBRARIES})
+
+add_executable(Global_Chaining Algorithms/Seed_Extension/Global_Chaining/main.cpp)
+target_link_libraries (Global_Chaining ${SEQAN_LIBRARIES})
+
+add_executable(Banded_Chain_Alignment Algorithms/Seed_Extension/Banded_Chain_Alignment/main.cpp)
+target_link_libraries (Banded_Chain_Alignment ${SEQAN_LIBRARIES})
+
 
 
 # Search for zlib as a dependency for SeqAn.
@@ -103,7 +112,6 @@ if ( ZLIB_FOUND )
     target_link_libraries(IndexIterators ${ZLIB_LIBRARIES} )
     target_link_libraries(Alignment ${ZLIB_LIBRARIES})
 endif( ZLIB_FOUND )
-
 
 
 
